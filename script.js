@@ -1,12 +1,12 @@
 
 const defaultProjects = [
-  { id:1, title:"Mentor Sync", description:"Mentor-mentee takvim eşleştirme platformu.", term:"Güz 2024", category:"Web", status:"approved", tags:["React","Firebase"] },
-  { id:2, title:"Mentor Pulse", description:"Haftalık memnuniyet ölçüm dashboard sistemi.", term:"Güz 2025", category:"Dashboard", status:"approved", tags:["Node","MongoDB"] },
-  { id:3, title:"Mentor Connect", description:"Mentor-mentee eşleştirme algoritması.", term:"Bahar 2025", category:"Algoritma", status:"approved", tags:["Python","Machine Learning"] },
-  { id:4, title:"Mentor Hub", description:"Mentor-mentee iletişim ve kaynak paylaşım platformu.", term:"Bahar 2024", category:"Web", status:"approved", tags:["Python","Node"] },
-  { id:5, title:"Mentor Insights", description:"Mentor-mentee etkileşim analizi ve raporlama aracı.", term:"Güz 2024", category:"Analiz", status:"approved", tags:["Python","Data Analysis"] },
-  { id:6, title:"Mentor Match", description:"Mentor-mentee eşleştirme uygulaması.", term:"Bahar 2025", category:"Mobil", status:"approved", tags:["Flutter","Firebase"] },
-  { id:7, title:"Mentor Tracker", description:"Mentor-mentee ilerleme takip sistemi.", term:"Güz 2025", category:"Web", status:"pending", tags:["React","Node"] }, 
+  { id:1, title:"Mentor Sync", description:"Mentor-mentee takvim eşleştirme platformu.", term:"Güz 2024", category:"Web", status:"approved", tags:["React","Firebase"], date:"2024-10-01", image:"https://images.unsplash.com/photo-1581092795362-71ee9c1f0f36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8fGRhc2hib2FyZHxlbnwwfHwwfHx8MA&w=800&q=80" },
+  { id:2, title:"Mentor Pulse", description:"Haftalık memnuniyet ölçüm dashboard sistemi.", term:"Güz 2025", category:"Dashboard", status:"approved", tags:["Node","MongoDB"], date:"2025-10-01" , image:"https://images.unsplash.com/photo-1591696205602-6d13c0e91a2e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8fGRhc2hib2FyZHxlbnwwfHwwfHx8MA&w=800&q=80" },
+  { id:3, title:"Mentor Connect", description:"Mentor-mentee eşleştirme algoritması.", term:"Bahar 2025", category:"Algoritma", status:"approved", tags:["Python","Machine Learning"], date:"2025-03-01", image:"https://images.unsplash.com/photo-1581092334442-df4eab03a4b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8fG1hY2hpbmUlMjBsZWFybmluZ3xlbnwwfHwwfHx8MA&w=800&q=80" },
+  { id:4, title:"Mentor Hub", description:"Mentor-mentee iletişim ve kaynak paylaşım platformu.", term:"Bahar 2024", category:"Web", status:"approved", tags:["Python","Node"], date:"2024-03-01", image:"https://images.unsplash.com/photo-1581092918367-476c3e96f99e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8fGxhcHRvcHxlbnwwfHwwfHx8MA&w=800&q=80" },
+  { id:5, title:"Mentor Insights", description:"Mentor-mentee etkileşim analizi ve raporlama aracı.", term:"Güz 2024", category:"Analiz", status:"approved", tags:["Python","Data Analysis"], date:"2024-10-15", image:"https://images.unsplash.com/photo-1581092334302-0dc8a973b2f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8fGRhdGF8ZW58MHx8MHx8&w=800&q=80" },
+  { id:6, title:"Mentor Match", description:"Mentor-mentee eşleştirme uygulaması.", term:"Bahar 2025", category:"Mobil", status:"approved", tags:["Flutter","Firebase"], date:"2025-03-15", image:"https://images.unsplash.com/photo-1581092334371-f5f70d3ef68c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8fGZsdXR0ZXJ8ZW58MHx8MHx8&w=800&q=80" },
+  { id:7, title:"Mentor Tracker", description:"Mentor-mentee ilerleme takip sistemi.", term:"Güz 2025", category:"Web", status:"pending", tags:["React","Node"], date:"2025-10-15", image:"https://images.unsplash.com/photo-1581092334343-2d53a5f5a2f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8fGRhc2hib2FyZHxlbnwwfHwwfHx8MA&w=800&q=80" }
 ];
 
 let storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
@@ -18,7 +18,7 @@ defaultProjects.forEach(p => {
 });
 
 let projects = storedProjects;
-localStorage.setItem("projects", JSON.stringify(projects));
+
 
 
 const ADMIN_USER = "admin";
@@ -149,16 +149,25 @@ function renderProjects() {
     }
 
     card.innerHTML = `
-      ${badgeHTML}
-      ${project.image ? `<img src="${project.image}" class="project-image" />` : ""}
-      <h3>${project.title}</h3>
-      <p>${project.description}</p>
-      <div class="meta">
-        <span>${project.term}</span>
-        <span>${project.category}</span>
-        <span>${project.date || ""}</span>
+  ${project.status ? `<div class="badge ${project.status}">${project.status === "approved" ? "Onaylandı" : "Bekliyor"}</div>` : ""}
+  <img src="${project.image || 'https://via.placeholder.com/300'}" class="project-image" />
+  <div class="project-card-content">
+    <h3>${project.title}</h3>
+    <p>${project.description}</p>
+    <div class="meta">
+      <span>${project.term}</span>
+      <span>${project.category}</span>
+      <span>${project.date || ""}</span>
+    </div>
+    ${isAdmin ? `
+      <div style="margin-top:10px; display:flex; gap:5px; flex-wrap:wrap;">
+        ${project.status === "pending" ? `<button onclick="approveProject(${project.id})" class="primary-btn" style="padding:5px 10px;font-size:12px;">Onayla</button>` : ""}
+        <button onclick="deleteProject(${project.id})" class="ghost-btn" style="padding:5px 10px;font-size:12px;">Sil</button>
+        <button onclick="editProject(${project.id})" class="primary-btn" style="padding:5px 10px;font-size:12px;">Düzenle</button>
       </div>
-    `;      
+    ` : ""}
+  </div>
+`;    
 
     card.addEventListener("click", () => openModal(project.id));
 
@@ -280,6 +289,55 @@ function deleteProject(id) {
   updateStats();
   renderTags();
 }
+function openModal(id) {
+  const project = projects.find(p => p.id === id);
+  if (!project) return;
+
+  currentProjectId = id;
+
+  // Modal içeriği
+  modalTitle.textContent = project.title;
+  modalDescription.innerHTML = `
+    <img src="${project.image || 'https://via.placeholder.com/300'}" 
+         style="width:100%; border-radius:12px; margin-bottom:15px;" />
+    ${project.description}
+  `;
+  modalMeta.innerHTML = `
+    <span>${project.term} | ${project.category} | ${project.date || ''}</span>
+  `;
+
+  // Favori butonu durumu
+  if (favorites.includes(id)) {
+    favoriteBtn.classList.add("favorite-active");
+  } else {
+    favoriteBtn.classList.remove("favorite-active");
+  }
+
+  modal.style.display = "flex";
+}
+
+// Modal kapatma
+closeModal.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+// Modal dışına tıklayınca kapatma
+window.addEventListener("click", (e) => {
+  if (e.target === modal) modal.style.display = "none";
+});
+
+// Favoriye ekleme
+favoriteBtn.addEventListener("click", () => {
+  if (!currentProjectId) return;
+  if (favorites.includes(currentProjectId)) {
+    favorites = favorites.filter(id => id !== currentProjectId);
+    favoriteBtn.classList.remove("favorite-active");
+  } else {
+    favorites.push(currentProjectId);
+    favoriteBtn.classList.add("favorite-active");
+  }
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+});
 
 function editProject(id) {
   const project = projects.find(p => p.id === id);
@@ -299,6 +357,7 @@ function editProject(id) {
     behavior: "smooth"
   });
 }
+
 
 renderTags();
 renderProjects();

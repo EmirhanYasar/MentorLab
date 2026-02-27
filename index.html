@@ -60,49 +60,62 @@
 
     <div class="tag-filters" id="tagFilters"></div>
 
-    <div class="project-grid" id="projectGrid"></div>
+    <div class="project-grid" id="projectGrid">
+      <!-- JS ile proje kartları buraya eklenecek -->
+      <p id="noProjectsMsg" style="display:none; text-align:center; width:100%;">Henüz proje bulunamadı.</p>
+    </div>
   </section>
 
   <section class="project-submit" id="projectFormSection">
-  <div class="submit-container">
-    <h2>Yeni Proje Gönder</h2>
+    <div class="submit-container">
+      <h2>Yeni Proje Gönder</h2>
 
-    <form id="projectForm" class="modern-form">
+      <form id="projectForm" class="modern-form">
 
-      <div class="form-row">
-        <input type="text" id="title" placeholder="Proje Başlığı" required />
-        <input type="text" id="term" placeholder="Dönem (örn: Güz 2026)" required />
-      </div>
+        <div class="form-row">
+          <input type="text" id="title" placeholder="Proje Başlığı" required />
+          <input type="text" id="term" placeholder="Dönem (örn: Güz 2026)" required />
+        </div>
 
-      <textarea id="description" placeholder="Proje Açıklaması" required></textarea>
+        <textarea id="description" placeholder="Proje Açıklaması" required></textarea>
 
-      <div class="form-row">
-        <input type="text" id="category" placeholder="Kategori" required />
-        <input type="text" id="tags" placeholder="Etiketler (virgülle ayrılmış)" required />
-      </div>
+        <div class="form-row">
+          <input type="text" id="category" placeholder="Kategori" required />
+          <input type="text" id="tags" placeholder="Etiketler (virgülle ayrılmış)" required />
+        </div>
 
-      <div class="form-row">
-        <input type="date" id="projectDate" required />
-        <input type="file" id="imageFile" accept="image/*" />
-      </div>
+        <div class="form-row">
+          <input type="date" id="projectDate" required />
+          <input type="file" id="imageFile" accept="image/*" />
+        </div>
 
-      <button type="submit" class="primary-btn full-btn">
-        🚀 Projeyi Gönder
-      </button>
+        <button type="submit" class="primary-btn full-btn">
+          🚀 Projeyi Gönder
+        </button>
 
-    </form>
+      </form>
+    </div>
+  </section>
+
+  <div id="projectModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <img id="modalImage" src="" alt="Proje Görseli" style="width:100%; border-radius:12px; margin-bottom:15px;" />
+      <p id="modalDescription"></p>
+      <div id="modalMeta"></div>
+      <button id="favoriteBtn" class="primary-btn">⭐ Favoriye Ekle</button>
+    </div>
   </div>
-</section>
 
-<div id="projectModal" class="modal">
-  <div class="modal-content">
-    <span id="closeModal" class="close">&times;</span>
-    <h2 id="modalTitle"></h2>
-    <p id="modalDescription"></p>
-    <div id="modalMeta"></div>
-    <button id="favoriteBtn" class="primary-btn">⭐ Favoriye Ekle</button>
-  </div>
-</div>
+  <footer class="footer">
+    <p>&copy; <span id="currentYear"></span> MentorLab. Tüm hakları saklıdır.</p>
+  </footer>
+
+  <script>
+    // Footer yılı otomatik
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+  </script>
 
   <script src="script.js"></script>
 </body>
