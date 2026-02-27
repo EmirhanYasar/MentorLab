@@ -1,6 +1,4 @@
-// ===============================
-// DEFAULT PROJECTS + LOCAL STORAGE
-// ===============================
+
 const defaultProjects = [
   { id:1, title:"Mentor Sync", description:"Mentor-mentee takvim eşleştirme platformu.", term:"Güz 2024", category:"Web", status:"approved", tags:["React","Firebase"] },
   { id:2, title:"Mentor Pulse", description:"Haftalık memnuniyet ölçüm dashboard sistemi.", term:"Güz 2025", category:"Dashboard", status:"approved", tags:["Node","MongoDB"] },
@@ -23,9 +21,6 @@ let projects = storedProjects;
 localStorage.setItem("projects", JSON.stringify(projects));
 
 
-// ===============================
-// ADMIN LOGIN
-// ===============================
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "1234";
 let isAdmin = false;
@@ -46,9 +41,6 @@ adminLoginBtn.addEventListener("click", () => {
 });
 
 
-// ===============================
-// ADMIN MODU AÇ / KAPAT
-// ===============================
 function setAdminMode(on) {
   isAdmin = on;
 
@@ -79,9 +71,7 @@ function setAdminMode(on) {
 }
 
 
-// ===============================
-// ELEMENTLER
-// ===============================
+
 const projectGrid = document.getElementById("projectGrid");
 const searchInput = document.getElementById("searchInput");
 const tagFilters = document.getElementById("tagFilters");
@@ -89,10 +79,6 @@ const form = document.getElementById("projectForm");
 
 let activeTag = "all";
 
-
-// ===============================
-// PROJE STATİSTİKLERİ
-// ===============================
 function updateStats() {
   document.getElementById("totalProjects").textContent = projects.length;
   document.getElementById("pendingProjects").textContent =
@@ -101,10 +87,6 @@ function updateStats() {
     new Set(projects.map(p => p.term)).size;
 }
 
-
-// ===============================
-// PROJELERİ RENDER ET
-// ===============================
 function renderProjects() {
   projectGrid.innerHTML = "";
 
@@ -185,9 +167,6 @@ function renderProjects() {
 }
 
 
-// ===============================
-// TAG FİLTRELERİ
-// ===============================
 function renderTags() {
   const allTags = new Set();
 
@@ -218,15 +197,9 @@ function createTagButton(tag) {
 }
 
 
-// ===============================
-// ARAMA
-// ===============================
 searchInput.addEventListener("input", renderProjects);
 
 
-// ===============================
-// PROJE GÖNDER
-// ===============================
 form.addEventListener("submit", e => {
   e.preventDefault();
 
@@ -285,10 +258,6 @@ const favoriteBtn = document.getElementById("favoriteBtn");
 
 let currentProjectId = null;
 
-
-// ===============================
-// ADMIN ONAY
-// ===============================
 function approveProject(id) {
   const project = projects.find(p => p.id === id);
 
@@ -301,9 +270,6 @@ function approveProject(id) {
 }
 
 
-// ===============================
-// ADMIN SİLME
-// ===============================
 function deleteProject(id) {
   if (!confirm("Projeyi silmek istediğine emin misin?")) return;
 
@@ -325,7 +291,6 @@ function editProject(id) {
   document.getElementById("category").value = project.category;
   document.getElementById("tags").value = project.tags.join(",");
 
-  // Eski projeyi sil (yenisini submit ile ekleyeceğiz)
   projects = projects.filter(p => p.id !== id);
   localStorage.setItem("projects", JSON.stringify(projects));
 
@@ -335,9 +300,6 @@ function editProject(id) {
   });
 }
 
-// ===============================
-// BAŞLAT
-// ===============================
 renderTags();
 renderProjects();
 updateStats();
