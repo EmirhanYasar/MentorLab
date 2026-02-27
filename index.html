@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MentorLab | Proje Arşivi</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">MentorLab</div>
+    <nav>
+      <a href="#projectsSection">Projeler</a>
+      <a href="#">Dönemler</a>
+      <a href="#projectFormSection">Gönder</a>
+    </nav>
+
+    <div class="admin-login" id="adminLoginDiv">
+      <input type="text" id="adminUsername" placeholder="Kullanıcı Adı" />
+      <input type="password" id="adminPassword" placeholder="Şifre" />
+      <button id="adminLoginBtn" class="primary-btn">Giriş</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-left">
+      <h1>Mentörlük projeleri<br><span>tek bir dijital arşivde.</span></h1>
+      <p>
+        Program boyunca geliştirilen tüm projeler burada yayınlanır.
+        Onaylı projeler vitrine çıkar.
+      </p>
+      <div class="hero-buttons">
+        <button class="primary-btn" onclick="document.getElementById('projectsSection').scrollIntoView({behavior:'smooth'})">Projeleri İncele</button>
+        <button class="ghost-btn" onclick="document.getElementById('projectFormSection').scrollIntoView({behavior:'smooth'})">Proje Gönder</button>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <h2 id="totalProjects">0</h2>
+        <p>Toplam Proje</p>
+      </div>
+      <div class="stat">
+        <h2 id="pendingProjects">0</h2>
+        <p>Onay Bekleyen</p>
+      </div>
+      <div class="stat">
+        <h2 id="totalTerms">0</h2>
+        <p>Dönem</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects" id="projectsSection">
+    <div class="section-header">
+      <h2>Projeler</h2>
+      <input type="text" id="searchInput" placeholder="Proje ara..." />
+    </div>
+
+    <div class="tag-filters" id="tagFilters"></div>
+
+    <div class="project-grid" id="projectGrid"></div>
+  </section>
+
+  <section class="project-submit" id="projectFormSection">
+  <div class="submit-container">
+    <h2>Yeni Proje Gönder</h2>
+
+    <form id="projectForm" class="modern-form">
+
+      <div class="form-row">
+        <input type="text" id="title" placeholder="Proje Başlığı" required />
+        <input type="text" id="term" placeholder="Dönem (örn: Güz 2026)" required />
+      </div>
+
+      <textarea id="description" placeholder="Proje Açıklaması" required></textarea>
+
+      <div class="form-row">
+        <input type="text" id="category" placeholder="Kategori" required />
+        <input type="text" id="tags" placeholder="Etiketler (virgülle ayrılmış)" required />
+      </div>
+
+      <div class="form-row">
+        <input type="date" id="projectDate" required />
+        <input type="file" id="imageFile" accept="image/*" />
+      </div>
+
+      <button type="submit" class="primary-btn full-btn">
+        🚀 Projeyi Gönder
+      </button>
+
+    </form>
+  </div>
+</section>
+
+  <!-- PROJE DETAY MODAL -->
+<div id="projectModal" class="modal">
+  <div class="modal-content">
+    <span id="closeModal" class="close">&times;</span>
+    <h2 id="modalTitle"></h2>
+    <p id="modalDescription"></p>
+    <div id="modalMeta"></div>
+    <button id="favoriteBtn" class="primary-btn">⭐ Favoriye Ekle</button>
+  </div>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
